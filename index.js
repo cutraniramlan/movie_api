@@ -71,8 +71,8 @@ let top10Movies = [
 
 // GET requests
 app.get("/", (req, res) => {
-  res.("Welcome to myFlix!");
-});send
+  res.send("Welcome to myFlix!");
+});
 
 app.get("/documentation", (req, res) => {
   res.sendFile("public/documentation.html", { root: __dirname });
