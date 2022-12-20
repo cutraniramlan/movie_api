@@ -250,10 +250,9 @@ app.put("/users/:Username", (req, res) => {
 });
 
 // Allow users add to their list of Favorites (create)
-app.post("/users/:Username/movies/:MovieID", (req, res) => {
-  let hashedPassword = Users.hashPassword(req.body.Password);
+app.post("/users/:username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
-    { Username: req.params.Username },
+    { username: req.params.username },
     {
       $push: { FavoriteMovies: req.params.MovieID },
     },
