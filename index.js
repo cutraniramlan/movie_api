@@ -116,20 +116,16 @@ app.get("/movies/genre/:name", (req, res) => {
 
 // get director by name
 //GET movies by a director
-app.get(
-  "/movies/directors/:directorname",
-  passport.authenticate("jwt", { session: false }),
-  (req, res) => {
-    Movies.findOne({ "director.name": req.params.directorname })
-      .then((movie) => {
-        res.json(movie.Director);
-      })
-      .catch((err) => {
-        console.error(err);
-        res.status(500).send("Error: " + err);
-      });
-  }
-);
+app.get("/movies/directors/:directorname", (req, res) => {
+  Movies.findOne({ "director.name": req.params.directorname })
+    .then((movie) => {
+      res.json(movie.director);
+    })
+    .catch((err) => {
+      console.error(err);
+      res.status(500).send("Error: " + err);
+    });
+});
 
 // Get all users
 app.get("/users", (req, res) => {
