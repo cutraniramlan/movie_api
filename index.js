@@ -119,7 +119,7 @@ app.get("/movies/genre/:name", (req, res) => {
 app.get("/movies/directors/:directorname", (req, res) => {
   Movies.findOne({ "director.name": req.params.directorname })
     .then((movie) => {
-      res.json(movie.director);
+      res.json(movie.Director);
     })
     .catch((err) => {
       console.error(err);
