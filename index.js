@@ -115,16 +115,21 @@ app.get("/movies/genre/:name", (req, res) => {
 });
 
 // get director by name
-app.get("/movies/directors/:directorname", (req, res) => {
-  Movies.findOne({ "director.name": req.params.directorname })
-    .then((movies) => {
-      res.json(movies);
-    })
-    .catch((err) => {
-      console.error(err);
-      res.status(500).send("Error: " + err);
-    });
-});
+//GET movies by a director
+app.get(
+  "/movies/directors/:directorName",
+  passport.authenticate("jwt", { session: false }),
+  (req, res) => {
+    Movies.findOne({ "Director.Name": req.params.directorName })
+      .then((movie) => {
+        res.json(movie.Director);
+      })
+      .catch((err) => {
+        console.error(err);
+        res.status(500).send("Error: " + err);
+      });
+  }
+);
 
 // Get all users
 app.get("/users", (req, res) => {
