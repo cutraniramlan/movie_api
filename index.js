@@ -30,6 +30,7 @@ app.use("/documentation.html", express.static("public"));
   (path = require("path"));
 app.use(bodyParser.json());
 
+const cors = require("cors");
 let allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
@@ -52,8 +53,8 @@ app.use(
   })
 );
 
-const cors = require("cors");
-app.use(cors());
+/* const cors = require("cors");
+app.use(cors()); */
 let auth = require("./auth")(app);
 const passport = require("passport");
 require("./passport");
