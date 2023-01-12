@@ -35,6 +35,7 @@ let allowedOrigins = [
   "http://localhost:8080",
   "http://testsite.com",
   "https://movie-api-rani-1.herokuapp.com",
+  "http://localhost:1234",
 ];
 
 app.use(
