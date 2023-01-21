@@ -37,20 +37,13 @@ let allowedOrigins = [
   "https://movie-api-rani-1.herokuapp.com",
   "http://localhost:1234",
   "http://myflix-rani.netlify.app",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/dzBtMocZuJbjLOXvrl4zGYigDzh.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/6DDJ8o2d6T4fpGWECLF4xBGTyAM.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/plcZXvI310FkbwIptvd6rqk63LP.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/ei8hhYCMfURfPOXKBnyl61be2iV.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/fhyun1mja3WwQsYr1a3x1x9BttP.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/clDFqATL4zcE7LzUwkrVj3zHvk7.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/o0kre9wRCZz3jjSjaru7QU0UtFz.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/g8sclIV4gj1TZqUpnL82hKOTK3B.jpg",
-  "https://www.themoviedb.org/t/p/w600_and_h900_bestv2/e3K5cLvVRXVxhw4mXQET92p1dnz.jpg",
+  "https://www.themoviedb.org",
 ];
 
 app.use(
   cors({
     origin: (origin, callback) => {
+      console.log(origin);
       if (!origin) return callback(null, true);
       if (allowedOrigins.indexOf(origin) === -1) {
         // If a specific origin isn’t found on the list of allowed origins
