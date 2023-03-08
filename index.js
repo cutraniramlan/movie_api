@@ -38,6 +38,7 @@ let allowedOrigins = [
   "http://localhost:1234",
   "http://myflix-rani.netlify.app",
   "https://www.themoviedb.org",
+  "http://localhost:4200",
 ];
 
 app.use(
