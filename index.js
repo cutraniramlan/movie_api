@@ -39,6 +39,7 @@ let allowedOrigins = [
   "http://myflix-rani.netlify.app",
   "https://www.themoviedb.org",
   "http://localhost:4200",
+  "https://myflix-movie-api.onrender.com/",
 ];
 
 app.use(
@@ -73,6 +74,11 @@ const accessLogStream = fs.createWriteStream(path.join(__dirname, "log.txt"), {
 app.use(morgan("combined", { stream: accessLogStream }));
 
 // CREATE or READ
+/**
+ * Gets "Welcome to FlixThis!" message.
+ * @function get/welcome
+ * @return Welcome message.
+ */
 
 // GET requests
 app.get("/", (req, res) => {
@@ -84,6 +90,13 @@ app.get("/documentation", (req, res) => {
 });
 
 // READ Movies
+
+/**
+ * Gets list of all movies.
+ * @function get/movies
+ * @returns Array of all movies.
+ */
+
 app.get(
   "/movies",
   passport.authenticate("jwt", { session: false }),
@@ -100,6 +113,13 @@ app.get(
 );
 
 // Get movie by title
+/**
+ * Gets a specific movie.
+ * @function get/movieBytitle
+ * @params title
+ * @returns Movie object.
+ */
+
 app.get(
   "/movies/:title",
   passport.authenticate("jwt", { session: false }),
@@ -116,6 +136,14 @@ app.get(
 );
 
 // get genre by Name
+
+/**
+ * Gets a movie genre by name.
+ * @function get/genreByname
+ * @params genre.name
+ * @returns Genre object.
+ */
+
 app.get(
   "/movies/genre/:name",
   passport.authenticate("jwt", { session: false }),
@@ -131,8 +159,15 @@ app.get(
   }
 );
 
-// get director by name
 //GET movies by a director
+
+/**
+ * Gets a movie director by name.
+ * @function get/directorbyname
+ * @params director.name
+ * @returns Director object.
+ */
+
 app.get(
   "/movies/directors/:name",
   passport.authenticate("jwt", { session: false }),
@@ -149,6 +184,13 @@ app.get(
 );
 
 // Get all users
+
+/**
+ * Get all users.
+ * @function get/users
+ * @returns An array of users.
+ */
+
 app.get(
   "/users",
   passport.authenticate("jwt", { session: false }),
@@ -165,6 +207,13 @@ app.get(
 );
 
 // Get a user by username
+/**
+ * Gets specific user.
+ * @function get/userByUsername
+ * @params Username
+ * @returns A specific user object.
+ */
+
 app.get(
   "/users/:Username",
   passport.authenticate("jwt", { session: false }),
@@ -189,6 +238,16 @@ app.get(
   Email: String,
   Birthday: Date
 }*/
+
+/**
+ * Creates a new user.
+ * @function post/user
+ * @params Username
+ * @params Password
+ * @params Email
+ * @returns New user object.
+ */
+
 app.post(
   "/users",
   // Validation logic here for request
@@ -255,6 +314,16 @@ app.post(
   (required)
   Birthday: Date
 }*/
+
+/**
+ * Updates a specific user data.
+ * @function put/userByUsername
+ * @params Username
+ * @params Password
+ * @params Email
+ * @returns User object with updated user info.
+ */
+
 app.put("/users/:Username", (req, res) => {
   Users.findOneAndUpdate(
     { Username: req.params.Username },
@@ -279,6 +348,15 @@ app.put("/users/:Username", (req, res) => {
 });
 
 // Allow users add to their list of Favorites (create)
+
+/**
+ * Adds a new favorite movie for a specific user.
+ * @function post/movieByMovieID
+ * @params Username
+ * @params MovieID
+ * @returns Updated user object with new favorite movie.
+ */
+
 app.post("/users/:username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { username: req.params.username },
@@ -298,6 +376,14 @@ app.post("/users/:username/movies/:MovieID", (req, res) => {
 });
 
 //Delete movie from favorite list
+/**
+ * Deletes favorite movie from user.
+ * @function delete/movieByMovieID
+ * @params Username
+ * @params MovieID
+ * @returns Updated user object with previously favorite movie removed.
+ */
+
 app.delete("/users/:username/movies/:MovieID", (req, res) => {
   Users.findOneAndUpdate(
     { username: req.params.username },
@@ -318,7 +404,13 @@ app.delete("/users/:username/movies/:MovieID", (req, res) => {
 
 // DELETE user (deregister )
 
-// Delete a user by username
+/**
+ * Deletes user.
+ * @function delete/user
+ * @params Username
+ * @returns Message stating the user has either been deleted or does not currently exist.
+ */
+
 app.delete("/users/:Username", (req, res) => {
   Users.findOneAndRemove({ Username: req.params.Username })
     .then((user) => {
@@ -335,12 +427,24 @@ app.delete("/users/:Username", (req, res) => {
 });
 
 // ERROR Handling
+
+/**
+ * Error handler.
+ * @function err
+ * @returns Error message.
+ */
+
 app.use((err, req, res, next) => {
   console.error(err.stack);
   res.status(500).send("Something broke!");
 });
 
 // listen for requests
+/**
+ * @constant
+ * type {string}
+ */
+
 const port = process.env.PORT || 8080;
 app.listen(port, "0.0.0.0", () => {
   console.log("Listening on Port " + port);
